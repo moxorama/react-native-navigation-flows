@@ -6,7 +6,7 @@ import {
   BottomSheetFooter,
   BottomSheetFooterProps 
 } from '@gorhom/bottom-sheet';
-import { useFlowContext } from '../context/FlowContext';
+import { useFlowContext } from '@/context/FlowContext';
 
 export const SheetA = forwardRef<BottomSheetModal,{}>((props, ref) => {
   const snapPoints = useMemo(() => ['50%'], []);

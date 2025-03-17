@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { useFlowContext } from '../context/FlowContext';
+import { useFlowContext } from '@/context/FlowContext';
 
 export const HomeScreen = () => {
   const navigation = useNavigation();

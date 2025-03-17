@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import type { TabParamList } from '../navigation/types';
-import { useFlowContext } from '../context/FlowContext';
+import type { TabParamList } from '@/navigation/types';
+import { useFlowContext } from '@/context/FlowContext';
 
 type Props = BottomTabScreenProps<TabParamList, 'ProfileScreen'>;
 

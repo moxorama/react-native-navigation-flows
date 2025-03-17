@@ -1,9 +1,9 @@
 import React from 'react';
-
-import { SheetA } from '../../screens/SheetA';
+import { View } from 'react-native';
+import { SheetA } from '@/screens/SheetA';
 import { useFlowB } from './useFlowB'
-import { useFlowContext } from '../../context/FlowContext';
-import SubFlowR from '../shared/SubFlowR/SubFlowR';
+import { useFlowContext } from '@/context/FlowContext';
+import SubFlowR from '@/flows/shared/SubFlowR/SubFlowR';
 export const FlowB: React.FC = () => {
   const { currentFlow } = useFlowContext();
 

@@ -1,11 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useNavigation, StackActions } from "@react-navigation/native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-
-import { useFlowContext } from "../../context/FlowContext";
-
-import { useSubFlowR } from "../shared/SubFlowR/useSubFlowR";
-
+import { useFlowContext } from "@/context/FlowContext";
+import { useSubFlowR } from "@/flows/shared/SubFlowR/useSubFlowR";
 
 const flowName = "flowB";
 

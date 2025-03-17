@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import type { RootStackParamList } from '../navigation/types';
-
-import { useFlowContext } from '../context/FlowContext';
+import type { RootStackParamList } from '@/navigation/types';
+import { useFlowContext } from '@/context/FlowContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ScreenC'>;
 

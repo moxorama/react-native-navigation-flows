@@ -1,6 +1,6 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { FlowProvider } from './src/context/FlowContext';
-import { Navigation } from './src/navigation/Navigation';
+import { FlowProvider } from '@/context/FlowContext';
+import { Navigation } from '@/navigation/Navigation';
 
 export default function App() {
   return (
