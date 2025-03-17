@@ -13,7 +13,7 @@ export const ScreenC = ({ navigation }: Props) => {
     <View style={styles.container}>
       <Text>Screen C</Text>
       <Button 
-        title="Go to Subflow R"
+        title="Go to Subflow KYC"
         onPress={() => {
           sendFlowEvent({
             source: "ScreenC",

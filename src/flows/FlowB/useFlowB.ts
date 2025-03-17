@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useNavigation, StackActions } from "@react-navigation/native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useFlowContext } from "@/context/FlowContext";
-import { useSubFlowR } from "@/flows/shared/SubFlowR/useSubFlowR";
+import { useSubFlowKYC } from "@/flows/shared/SubFlowKYC/useSubFlowKYC";
 
 const flowName = "flowB";
 
@@ -49,7 +49,7 @@ function useFlowB () {
   const { 
     handlers: subFlowRHandlers, 
     handleStart: handleSubFlowRStart 
-  } = useSubFlowR(handleComplete);
+  } = useSubFlowKYC({ onComplete: handleComplete });
 
   const handleScreenC = () => {
     console.log(`${currentFlow}/handleScreenC`);

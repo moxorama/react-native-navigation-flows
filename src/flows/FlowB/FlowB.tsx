@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { SheetA } from '@/screens/SheetA';
 import { useFlowB } from './useFlowB'
 import { useFlowContext } from '@/context/FlowContext';
-import SubFlowR from '@/flows/shared/SubFlowR/SubFlowR';
+import { SubFlowKYC } from '@/flows/shared/SubFlowKYC/SubFlowKYC';
 export const FlowB: React.FC = () => {
   const { currentFlow } = useFlowContext();
 
@@ -20,7 +20,7 @@ export const FlowB: React.FC = () => {
   return (
     <>
       <SheetA ref={sheetARef} />
-      <SubFlowR />
+      <SubFlowKYC />
     </>
   );
 }

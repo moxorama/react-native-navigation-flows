@@ -12,9 +12,6 @@ export const SheetA = forwardRef<BottomSheetModal,{}>((props, ref) => {
   const snapPoints = useMemo(() => ['50%'], []);
   const { sendFlowEvent } = useFlowContext();
 
-  const handleSheetChanges = useCallback((index: number) => {
-    // console.log('handleSheetChanges', index);
-  }, []);
 
   const handlePressContinue = () => {
     ref?.current?.close();
@@ -43,7 +40,6 @@ export const SheetA = forwardRef<BottomSheetModal,{}>((props, ref) => {
       ref={ref}
       index={1}
       snapPoints={snapPoints}
-      onChange={handleSheetChanges}
       footerComponent={renderFooter}
     >
       <BottomSheetView style={styles.contentContainer}>

@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 
-const useSubFlowR = (onComplete: () => void) => {
+const useSubFlowKYC: SubFlowHook = (params) => {
+  const { onComplete } = params;
   const navigation = useNavigation();
 
   const handleScreenB = () => {
@@ -26,4 +27,4 @@ const useSubFlowR = (onComplete: () => void) => {
   }
 }
 
-export { useSubFlowR };
+export { useSubFlowKYC};

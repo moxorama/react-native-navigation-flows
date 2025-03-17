@@ -13,7 +13,7 @@ export const ScreenD: React.FC<Props> = ({ navigation }) => {
     <View style={styles.container}>
       <Text>Screen D</Text>
       <Button 
-        title="Complete Subflow R"
+        title="Complete Subflow KYC"
         onPress={() => {
           sendFlowEvent({
             source: "ScreenD",
