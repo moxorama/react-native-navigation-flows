@@ -1,8 +1,12 @@
+
+type EventHandler = () => void;
+type SourceHandlers = Record<string, EventHandler>;
+type FlowHandlers = Record<string, SourceHandlers>;
+
+
 type SubFlowHookReturn = {
   handleStart: () => void,
-  handlers: {
-    [key: string]: () => void
-  }
+  handlers: FlowHandlers,
 };
 
 type SubFlowHookParams = {

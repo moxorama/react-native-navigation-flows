@@ -17,14 +17,18 @@ const useSubFlowKYC: SubFlowHook = (params) => {
   };
 
   const handlers = {
-    "ScreenB": handleScreenB,
-    "ScreenD": handleScreenD,
+    "ScreenB": {
+      "next": handleScreenB,
+    },
+    "ScreenD": {
+      "next": handleScreenD,
+    },
   };
 
   return {
     handleStart,
-    handlers,
+    handlers: handlers,
   }
 }
 
-export { useSubFlowKYC};
+export { useSubFlowKYC };

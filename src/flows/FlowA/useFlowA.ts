@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { useFlowContext } from "../../context/FlowContext";
-import { useNavigation, StackActions, useNavigationContainerRef } from "@react-navigation/native";
+import { useNavigation, StackActions } from "@react-navigation/native";
 
+import { useFlowContext } from "@/context/FlowContext";
+import { useFlowController } from "@/context/useFlowController";
 const flowName = "flowA";
 
 function useFlowA () {
-  const { currentFlow, flowEventAction, flowEventSource, completeFlow, completeFlowEvent, navigationScreen } = useFlowContext();
+  const { currentFlow, completeFlow, completeFlowEvent } = useFlowContext();
 
   const navigation = useNavigation();
 
@@ -19,8 +19,8 @@ function useFlowA () {
     completeFlow(flowName);
   };
 
-  const handleCancel = () => {
-    console.log(`${currentFlow}/handleCancel`);
+  const handleAbort = () => {
+    console.log(`${currentFlow}/handleAbort`);
     const popToAction = StackActions.popTo("MainTabs", { 
       screen: "HomeScreen"
     });
@@ -50,54 +50,26 @@ function useFlowA () {
   };
 
   const flowHandlers = {
-    "HomeScreen" : handleHomeScreen,
-    "ScreenA": handleScreenA,
-    "ScreenB": handleScreenB,
+    "HomeScreen" : {
+      "next": handleHomeScreen,
+    },
+    "ScreenA": {
+      "next": handleScreenA,
+      "cancel": handleAbort,
+    },
+    "ScreenB": {
+      "next": handleScreenB,
+    },
   }
 
-  const shouldAbortFlow = () => {
-    return !(navigationScreen in flowHandlers);
-  }
-
-  useEffect(() => {
-    if (currentFlow !== flowName ) {
-      return;
-    }
-
-    if ((flowEventSource === "") || (flowEventAction === "")) {
-      return;
-    }
-
-    const handler = flowHandlers[flowEventSource as keyof typeof flowHandlers];
-
-    if (flowEventAction === "cancel") {
-      handleCancel();
-      return;
-    }
-
-    if (handler) {
-      handler();
-      completeFlowEvent();
-    }
-
-  }, [currentFlow, flowEventSource, flowEventAction]);
-
-  useEffect(() => {
-    if (currentFlow === flowName) {
-      handleStart();
-    }
-  }, [currentFlow]);
-
-  useEffect(() => {
-    if (currentFlow !== flowName) {
-      return;
-    }
-
-    if (shouldAbortFlow()) {
-      completeFlow(flowName);
-      return;
-    }
-  }, [navigationScreen, currentFlow]);
+  useFlowController({
+    flowName,
+    flowHandlers,
+    onAbort: handleAbort,
+    onStart: handleStart,
+  })
 }
+
+ 
 
 export { useFlowA };

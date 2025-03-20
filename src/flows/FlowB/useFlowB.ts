@@ -1,13 +1,16 @@
 import { useEffect, useRef } from "react";
 import { useNavigation, StackActions } from "@react-navigation/native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+
 import { useFlowContext } from "@/context/FlowContext";
+import { useFlowController } from "@/context/useFlowController";
+
 import { useSubFlowKYC } from "@/flows/shared/SubFlowKYC/useSubFlowKYC";
 
 const flowName = "flowB";
 
 function useFlowB () {
-  const { currentFlow, completeFlow, flowEventSource, flowEventAction, completeFlowEvent, navigationScreen } = useFlowContext();
+  const { currentFlow, completeFlow } = useFlowContext();
 
 
   const navigation = useNavigation();
@@ -24,7 +27,7 @@ function useFlowB () {
     completeFlow(flowName);
   }  
 
-  const handleCancel = () => {
+  const handleAbort = () => {
     const popToAction = StackActions.popTo("MainTabs", { 
       screen: "ProfileScreen"
     });
@@ -45,68 +48,37 @@ function useFlowB () {
     navigation.navigate("ScreenC");
   };
 
-
-  const { 
-    handlers: subFlowRHandlers, 
-    handleStart: handleSubFlowRStart 
-  } = useSubFlowKYC({ onComplete: handleComplete });
-
   const handleScreenC = () => {
     console.log(`${currentFlow}/handleScreenC`);
-    handleSubFlowRStart();
+    handleSubFlowKYCStart();
   };
 
 
+  const { 
+    handleStart: handleSubFlowKYCStart,
+    handlers: subFlowKYCHandlers,
+  } = useSubFlowKYC({ onComplete: handleComplete });
+
+ 
   const flowHandlers = {
-    ...subFlowRHandlers,
-    "ProfileScreen": handleProfileScreen,
-    "ScreenC": handleScreenC,
-    "SheetA": handleSheetA,
-  }
+    ...subFlowKYCHandlers,
+    "ProfileScreen": {
+      "next": handleProfileScreen,
+    },
+    "ScreenC": {
+      "next": handleScreenC,
+    },
+    "SheetA": {
+      "next": handleSheetA,
+    },
+  };
 
-  const shouldAbortFlow = () => {
-    return !(navigationScreen in flowHandlers);
-  }
-
-  useEffect(() => {
-    if (currentFlow !== flowName ) {
-      return;
-    }
-
-
-    if ((flowEventSource === "") || (flowEventAction === "")) {
-      return;
-    }
-    
-    const handler = flowHandlers[flowEventSource as keyof typeof flowHandlers];
-
-    if (handler) {
-      handler();
-      completeFlowEvent();
-    }
-
-  }, [currentFlow, flowEventSource, flowEventAction]);
-
-
-  useEffect(() => {
-    if (currentFlow === flowName) {
-      handleStart();
-    }
-  }, [currentFlow]);
-
-
-  useEffect(() => {
-    if (currentFlow !== flowName) {
-      return;
-    }
-
-    if (shouldAbortFlow()) {
-      completeFlow(flowName);
-      return;
-    }
-  }, [navigationScreen, currentFlow]);
-  
-
+  useFlowController({
+    flowName,
+    flowHandlers,
+    onAbort: handleAbort,
+    onStart: handleStart,
+  })
 
   return {
     sheetARef,

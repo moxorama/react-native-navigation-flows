@@ -31,11 +31,15 @@ The navigation system is built on a Finite State Machine (FSM) pattern where:
    - Events trigger transitions between states
    - The flow hook acts as the state machine controller
    ```typescript
-   const flowHandlers = {
-     'PaymentScreen': handlePaymentScreen
+   type FlowHandler = () => void;
+   type FlowHandlers = Record<string, FlowHandler>;
+
+   const flowHandlers: FlowHandlers = {
+     'PaymentScreen': handlePaymentScreen,
      'ConfirmationScreen': handleConfirmationScreen
    };
    ```
+
 3. **Flow abort**
   - Could be explicit - by sending 'abort' action from any source
   - Could be implicit - if current screen name (from react-navigation) does not exists in screen handlers
