@@ -7,6 +7,7 @@ In complex applications, navigation requirements often go beyond simple screen-t
 The same screen can be part of different user flows depending on the context
 
 Screen A -> Screen B -> Screen C
+
 Screen D -> Screen B -> Screen E
 
 In this case, the obvious solution would be to build complex redirect logic inside Screen B, passing parameters to it.
